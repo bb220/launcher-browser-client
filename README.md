@@ -1,30 +1,104 @@
-# launcher-webapp
+# Launcher WebApp
 
-*Automatically synced with your [v0.dev](https://v0.dev) deployments*
+Frontend web application for the Launcher platform.  
+This project provides the user-facing experience and connects to backend services such as the Launcher UserService.
 
-[![Deployed on Vercel](https://img.shields.io/badge/Deployed%20on-Vercel-black?style=for-the-badge&logo=vercel)](https://vercel.com/bb220s-projects/v0-launcher-webapp)
-[![Built with v0](https://img.shields.io/badge/Built%20with-v0.dev-black?style=for-the-badge)](https://v0.dev/chat/projects/kee9GjoVpUg)
+---
 
-## Overview
+## Features
 
-This repository will stay in sync with your deployed chats on [v0.dev](https://v0.dev).
-Any changes you make to your deployed app will be automatically pushed to this repository from [v0.dev](https://v0.dev).
+- Landing page with placeholder content
+- User Registration and Login
+- Dashboard for logged in users with placeholder content
+---
+
+## Tech Stack
+
+- [Next.js](https://nextjs.org/) (React Framework)
+- [Vercel](https://vercel.com/) (Hosting & Deployment)
+- [Tailwind CSS](https://tailwindcss.com/) (Optional — if used)
+- API integration with Launcher UserService (Coming soon)
+
+---
+
+## Getting Started
+
+### Prerequisites
+
+- [Node.js](https://nodejs.org/) (v18 or higher recommended)
+- [NPM](https://www.npmjs.com/) or [Yarn](https://yarnpkg.com/)
+
+### Installation
+
+Clone the repository:
+
+```bash
+git clone https://github.com/bb220/launcher-webapp.git
+cd launcher-webapp
+```
+
+Install dependencies:
+
+```bash
+npm install
+# or
+yarn install
+```
+
+### Running Locally
+
+Start the development server:
+
+```bash
+npm run dev
+# or
+yarn dev
+```
+
+The app will be available at [http://localhost:3000](http://localhost:3000).
+
+---
 
 ## Deployment
 
-Your project is live at:
+This project is continuously deployed via [Vercel](https://vercel.com/).
 
-**[https://vercel.com/bb220s-projects/v0-launcher-webapp](https://vercel.com/bb220s-projects/v0-launcher-webapp)**
+On each push to the `main` branch, Vercel automatically builds and deploys the latest version.
 
-## Build your app
+---
 
-Continue building your app on:
+## Environment Variables
 
-**[https://v0.dev/chat/projects/kee9GjoVpUg](https://v0.dev/chat/projects/kee9GjoVpUg)**
+The following environment variables may be required:
 
-## How It Works
+| Variable Name            | Description                    |
+|---------------------------|--------------------------------|
+| `NEXT_PUBLIC_API_URL`     | Base URL for backend API       |
 
-1. Create and modify your project using [v0.dev](https://v0.dev)
-2. Deploy your chats from the v0 interface
-3. Changes are automatically pushed to this repository
-4. Vercel deploys the latest version from this repository
+Create a `.env.local` file in the project root and add the necessary variables:
+
+```bash
+NEXT_PUBLIC_API_URL=https://your-api-url.com
+```
+
+---
+
+## Roadmap
+
+- [x] Initial Frontend Setup
+- [ ] Connect frontend to Launcher UserService
+- [ ] Add user session management
+- [ ] Add UI/UX enhancements
+- [ ] Integrate additional Launcher platform services
+
+---
+
+## License
+
+[MIT](LICENSE)
+
+---
+
+## Related Projects
+
+- [Launcher UserService](https://github.com/bb220/launcher-userservice)
