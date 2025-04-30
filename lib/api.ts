@@ -56,4 +56,24 @@ export async function loginUser(email: string, password: string) {
   
     return data;
   }
+
+  export async function resetPassword(token: string, newPassword: string) {
+    const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/reset-password`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        token,
+        new_password: newPassword,
+      }),
+    });
+  
+    const data = await res.json();
+  
+    if (!res.ok) {
+      throw new Error(data.detail || "Password reset failed");
+    }
+  
+    return data;
+  }
+  
   

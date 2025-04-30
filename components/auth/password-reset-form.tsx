@@ -11,6 +11,7 @@ import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { useToast } from "@/hooks/use-toast"
 import { EyeIcon, EyeOffIcon, Loader2 } from "lucide-react"
+import { resetPassword } from "@/lib/api"
 
 const resetPasswordSchema = z.object({
   password: z.string().min(8, { message: "Password must be at least 8 characters" }),
@@ -52,20 +53,7 @@ export function PasswordResetForm() {
       // Validate form data
       resetPasswordSchema.parse(data)
 
-      // TODO: Replace with your backend API call
-      // const response = await fetch("/api/auth/reset-password", {
-      //   method: "POST",
-      //   headers: { "Content-Type": "application/json" },
-      //   body: JSON.stringify(data),
-      // });
-
-      // Simulate API call with timeout
-      await new Promise((resolve) => setTimeout(resolve, 1000))
-
-      // if (!response.ok) {
-      //   const errorData = await response.json();
-      //   throw new Error(errorData.message || "Password reset failed");
-      // }
+      await resetPassword(token, data.password)
 
       toast({
         title: "Success",
@@ -73,7 +61,7 @@ export function PasswordResetForm() {
       })
 
       // Redirect to login page
-      router.push("/")
+      router.push("/auth")
     } catch (error) {
       if (error instanceof z.ZodError) {
         const fieldErrors: Record<string, string> = {}
