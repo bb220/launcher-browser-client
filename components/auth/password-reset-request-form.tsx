@@ -12,6 +12,7 @@ import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { useToast } from "@/hooks/use-toast"
 import { Loader2 } from "lucide-react"
+import { requestPasswordReset } from "@/lib/api"
 
 const resetRequestSchema = z.object({
   email: z.string().email({ message: "Please enter a valid email address" }),
@@ -38,20 +39,7 @@ export function PasswordResetRequestForm() {
       // Validate form data
       resetRequestSchema.parse(data)
 
-      // TODO: Replace with your backend API call
-      // const response = await fetch("/api/auth/forgot-password", {
-      //   method: "POST",
-      //   headers: { "Content-Type": "application/json" },
-      //   body: JSON.stringify(data),
-      // });
-
-      // Simulate API call with timeout
-      await new Promise((resolve) => setTimeout(resolve, 1000))
-
-      // if (!response.ok) {
-      //   const errorData = await response.json();
-      //   throw new Error(errorData.message || "Request failed");
-      // }
+      await requestPasswordReset(data.email)
 
       setSubmitted(true)
     } catch (error) {
@@ -98,7 +86,7 @@ export function PasswordResetRequestForm() {
             </Button>
           </p>
           <Button variant="outline" className="mt-4" asChild>
-            <Link href="/">Return to login</Link>
+            <Link href="/auth">Return to login</Link>
           </Button>
         </CardFooter>
       </Card>
