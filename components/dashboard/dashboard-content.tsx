@@ -24,13 +24,14 @@ export function DashboardContent() {
     setError(null)
 
     try {
+      const token = localStorage.getItem("token");
+
       // Make request to your protected endpoint
-      const response = await fetch("/api/protected", {
+      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/protected`, {
         method: "GET",
         headers: {
           "Content-Type": "application/json",
-          // Include authentication headers if needed
-          // "Authorization": `Bearer ${token}`
+          ...(token && { Authorization: `Bearer ${token}` }),
         },
       })
 
@@ -65,6 +66,11 @@ export function DashboardContent() {
   }
 
   useEffect(() => {
+    const token = localStorage.getItem("token");
+    if (!token) {
+      router.push("/");
+      return;
+    }
     fetchProtectedData()
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
@@ -74,8 +80,7 @@ export function DashboardContent() {
   }
 
   const handleLogout = () => {
-    // TODO: Implement logout functionality
-    // This would typically clear the auth token/session
+    localStorage.removeItem("token")
 
     toast({
       title: "Logged out",

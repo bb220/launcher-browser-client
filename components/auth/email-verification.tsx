@@ -25,17 +25,13 @@ export function EmailVerification() {
       }
 
       try {
-        // TODO: Replace with your backend API call
-        // const response = await fetch(`/api/auth/verify-email?token=${token}`, {
-        //   method: "GET",
-        // });
+        const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/verify-email?token=${token}`)
 
-        // Simulate API call with timeout
-        await new Promise((resolve) => setTimeout(resolve, 2000))
+        const data = await response.json()
 
-        // if (!response.ok) {
-        //   throw new Error("Verification failed");
-        // }
+        if (!response.ok) {
+          throw new Error(data.detail || "Verification failed")
+        }
 
         setStatus("success")
       } catch (error) {
@@ -88,7 +84,7 @@ export function EmailVerification() {
               The verification link may have expired or is invalid.
             </p>
             <Button variant="outline" className="w-full" asChild>
-              <Link href="/">Return to login</Link>
+              <Link href="/auth">Return to login</Link>
             </Button>
           </>
         )}

@@ -12,6 +12,7 @@ import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { useToast } from "@/hooks/use-toast"
 import { EyeIcon, EyeOffIcon, Loader2 } from "lucide-react"
+import { registerUser } from "@/lib/api";
 
 const registerSchema = z.object({
   email: z.string().email({ message: "Please enter a valid email address" }),
@@ -41,31 +42,15 @@ export function RegisterForm({ inTabView = false }: RegisterFormProps) {
     }
 
     try {
-      // Validate form data
-      registerSchema.parse(data)
+      registerSchema.parse(data);
 
-      // TODO: Replace with your backend API call
-      // const response = await fetch("/api/auth/register", {
-      //   method: "POST",
-      //   headers: { "Content-Type": "application/json" },
-      //   body: JSON.stringify(data),
-      // });
-
-      // Simulate API call with timeout
-      await new Promise((resolve) => setTimeout(resolve, 1000))
-
-      // if (!response.ok) {
-      //   const errorData = await response.json();
-      //   throw new Error(errorData.message || "Registration failed");
-      // }
+      await registerUser(data.email, data.password)
 
       toast({
         title: "Registration successful",
         description: "Please check your email to verify your account",
       })
 
-      // Redirect to verification page or login page
-      router.push("/verify-email")
     } catch (error) {
       if (error instanceof z.ZodError) {
         const fieldErrors: Record<string, string> = {}

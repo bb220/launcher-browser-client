@@ -12,6 +12,7 @@ import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { useToast } from "@/hooks/use-toast"
 import { EyeIcon, EyeOffIcon, Loader2 } from "lucide-react"
+import { loginUser } from "@/lib/api"
 
 const loginSchema = z.object({
   email: z.string().email({ message: "Please enter a valid email address" }),
@@ -44,20 +45,9 @@ export function LoginForm({ inTabView = false }: LoginFormProps) {
       // Validate form data
       loginSchema.parse(data)
 
-      // TODO: Replace with your backend API call
-      // const response = await fetch("/api/auth/login", {
-      //   method: "POST",
-      //   headers: { "Content-Type": "application/json" },
-      //   body: JSON.stringify(data),
-      // });
+      const { access_token } = await loginUser(data.email, data.password)
 
-      // Simulate API call with timeout
-      await new Promise((resolve) => setTimeout(resolve, 1000))
-
-      // if (!response.ok) {
-      //   const errorData = await response.json();
-      //   throw new Error(errorData.message || "Login failed");
-      // }
+      localStorage.setItem("token", access_token)
 
       toast({
         title: "Success",
