@@ -75,3 +75,39 @@ export async function loginUser(email: string, password: string) {
   
     return data;
   }
+  
+  export async function resendVerificationEmail(formData: FormData) {
+    const email = formData.get("email") as string
+  
+    if (!email) {
+      return {
+        error: "Email is required",
+      }
+    }
+  
+    try {
+      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/resend-verification-email`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ email }),
+      })
+  
+      if (!response.ok) {
+        const error = await response.json()
+        return { error: error.message || "Failed to resend verification email" }
+      }
+  
+      return {
+        success: true,
+        message: "Verification email has been sent. Please check your inbox.",
+      }
+    } catch (error) {
+      console.error("Error resending verification email:", error)
+      return {
+        error: "An unexpected error occurred. Please try again later.",
+      }
+    }
+  }
+  
