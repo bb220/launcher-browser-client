@@ -38,11 +38,6 @@ export function DashboardContent() {
       if (!response.ok) {
         // If response is 401 Unauthorized, redirect to login
         if (response.status === 401) {
-          toast({
-            title: "Session expired",
-            description: "Please log in again to continue",
-            variant: "destructive",
-          })
           router.push("/")
           return
         }
@@ -82,10 +77,6 @@ export function DashboardContent() {
   const handleLogout = () => {
     localStorage.removeItem("token")
 
-    toast({
-      title: "Logged out",
-      description: "You have been successfully logged out",
-    })
     router.push("/auth")
   }
 
