@@ -9,8 +9,8 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
-import { useToast } from "@/hooks/use-toast"
-import { EyeIcon, EyeOffIcon, Loader2 } from "lucide-react"
+import { Alert, AlertDescription } from "@/components/ui/alert"
+import { EyeIcon, EyeOffIcon, Loader2, AlertCircle, CheckCircle2 } from "lucide-react"
 import { resetPassword } from "@/lib/api"
 
 const resetPasswordSchema = z.object({
@@ -21,9 +21,9 @@ export function PasswordResetForm() {
   const [isLoading, setIsLoading] = useState(false)
   const [errors, setErrors] = useState<Record<string, string>>({})
   const [showPassword, setShowPassword] = useState(false)
+  const [result, setResult] = useState<{ success?: string; error?: string }>({})
   const router = useRouter()
   const searchParams = useSearchParams()
-  const { toast } = useToast()
 
   // Get token from URL (e.g., /reset-password?token=xyz)
   const token = searchParams.get("token")
@@ -32,13 +32,10 @@ export function PasswordResetForm() {
     event.preventDefault()
     setIsLoading(true)
     setErrors({})
+    setResult({})
 
     if (!token) {
-      toast({
-        title: "Error",
-        description: "Invalid or missing reset token",
-        variant: "destructive",
-      })
+      setResult({ error: "Invalid or missing reset token" })
       setIsLoading(false)
       return
     }
@@ -55,10 +52,7 @@ export function PasswordResetForm() {
 
       await resetPassword(token, data.password)
 
-      toast({
-        title: "Success",
-        description: "Your password has been reset successfully",
-      })
+      setResult({ success: "Your password has been reset successfully" })
 
       // Redirect to login page
       router.push("/auth")
@@ -72,17 +66,9 @@ export function PasswordResetForm() {
         })
         setErrors(fieldErrors)
       } else if (error instanceof Error) {
-        toast({
-          title: "Error",
-          description: error.message,
-          variant: "destructive",
-        })
+        setResult({ error: error.message })
       } else {
-        toast({
-          title: "Error",
-          description: "Something went wrong. Please try again.",
-          variant: "destructive",
-        })
+        setResult({ error: "Something went wrong. Please try again." })
       }
     } finally {
       setIsLoading(false)
@@ -137,6 +123,18 @@ export function PasswordResetForm() {
               "Reset password"
             )}
           </Button>
+          {result?.success && (
+            <Alert className="bg-green-50 border-green-200 mt-2 block">
+              <CheckCircle2 className="h-4 w-4 text-green-600" />
+              <AlertDescription className="text-green-700">{result.success}</AlertDescription>
+            </Alert>
+          )}
+          {result?.error && (
+            <Alert variant="destructive" className="mt-2 block">
+              <AlertCircle className="h-4 w-4" />
+              <AlertDescription>{result.error}</AlertDescription>
+            </Alert>
+          )}
         </form>
       </CardContent>
     </Card>

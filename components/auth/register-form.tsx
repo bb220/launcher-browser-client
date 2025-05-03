@@ -10,8 +10,8 @@ import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle }
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
-import { useToast } from "@/hooks/use-toast"
-import { EyeIcon, EyeOffIcon, Loader2 } from "lucide-react"
+import { Alert, AlertDescription } from "@/components/ui/alert"
+import { EyeIcon, EyeOffIcon, Loader2, AlertCircle, CheckCircle2 } from "lucide-react"
 import { registerUser } from "@/lib/api";
 
 const registerSchema = z.object({
@@ -27,13 +27,14 @@ export function RegisterForm({ inTabView = false }: RegisterFormProps) {
   const [isLoading, setIsLoading] = useState(false)
   const [errors, setErrors] = useState<Record<string, string>>({})
   const [showPassword, setShowPassword] = useState(false)
+  const [result, setResult] = useState<{ success?: string; error?: string }>({})
   const router = useRouter()
-  const { toast } = useToast()
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault()
     setIsLoading(true)
     setErrors({})
+    setResult({})
 
     const formData = new FormData(event.currentTarget)
     const data = {
@@ -46,10 +47,7 @@ export function RegisterForm({ inTabView = false }: RegisterFormProps) {
 
       await registerUser(data.email, data.password)
 
-      toast({
-        title: "Registration successful",
-        description: "Please check your email to verify your account",
-      })
+      setResult({ success: "Registration successful" })
 
       router.push(`/send-verify?email=${encodeURIComponent(data.email)}`)
 
@@ -63,17 +61,9 @@ export function RegisterForm({ inTabView = false }: RegisterFormProps) {
         })
         setErrors(fieldErrors)
       } else if (error instanceof Error) {
-        toast({
-          title: "Error",
-          description: error.message,
-          variant: "destructive",
-        })
+        setResult({ error: error.message })
       } else {
-        toast({
-          title: "Error",
-          description: "Something went wrong. Please try again.",
-          variant: "destructive",
-        })
+        setResult({ error: "Something went wrong. Please try again." })
       }
     } finally {
       setIsLoading(false)
@@ -142,6 +132,18 @@ export function RegisterForm({ inTabView = false }: RegisterFormProps) {
                 "Create account"
               )}
             </Button>
+            {result?.success && (
+              <Alert className="bg-green-50 border-green-200 mt-2 block">
+                <CheckCircle2 className="h-4 w-4 text-green-600" />
+                <AlertDescription className="text-green-700">{result.success}</AlertDescription>
+              </Alert>
+            )}
+            {result?.error && (
+              <Alert variant="destructive" className="mt-2 block">
+                <AlertCircle className="h-4 w-4" />
+                <AlertDescription>{result.error}</AlertDescription>
+              </Alert>
+            )}
           </form>
         </div>
       </>
@@ -209,6 +211,18 @@ export function RegisterForm({ inTabView = false }: RegisterFormProps) {
               "Create account"
             )}
           </Button>
+          {result?.success && (
+            <Alert className="bg-green-50 border-green-200 mt-2 block">
+              <CheckCircle2 className="h-4 w-4 text-green-600" />
+              <AlertDescription className="text-green-700">{result.success}</AlertDescription>
+            </Alert>
+          )}
+          {result?.error && (
+            <Alert variant="destructive" className="mt-2 block">
+              <AlertCircle className="h-4 w-4" />
+              <AlertDescription>{result.error}</AlertDescription>
+            </Alert>
+          )}
         </form>
       </CardContent>
       <CardFooter>

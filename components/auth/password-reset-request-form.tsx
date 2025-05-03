@@ -10,7 +10,8 @@ import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle }
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
-import { useToast } from "@/hooks/use-toast"
+import { Alert, AlertDescription } from "@/components/ui/alert"
+import { AlertCircle, CheckCircle2 } from "lucide-react"
 import { Loader2 } from "lucide-react"
 import { requestPasswordReset } from "@/lib/api"
 
@@ -22,13 +23,14 @@ export function PasswordResetRequestForm() {
   const [isLoading, setIsLoading] = useState(false)
   const [errors, setErrors] = useState<Record<string, string>>({})
   const [submitted, setSubmitted] = useState(false)
+  const [result, setResult] = useState<{ success?: string; error?: string }>({})
   const router = useRouter()
-  const { toast } = useToast()
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault()
     setIsLoading(true)
     setErrors({})
+    setResult({})
 
     const formData = new FormData(event.currentTarget)
     const data = {
@@ -41,6 +43,7 @@ export function PasswordResetRequestForm() {
 
       await requestPasswordReset(data.email)
 
+      setResult({ success: "We've sent you a link to reset your password. Please check your inbox." })
       setSubmitted(true)
     } catch (error) {
       if (error instanceof z.ZodError) {
@@ -52,17 +55,9 @@ export function PasswordResetRequestForm() {
         })
         setErrors(fieldErrors)
       } else if (error instanceof Error) {
-        toast({
-          title: "Error",
-          description: error.message,
-          variant: "destructive",
-        })
+        setResult({ error: error.message })
       } else {
-        toast({
-          title: "Error",
-          description: "Something went wrong. Please try again.",
-          variant: "destructive",
-        })
+        setResult({ error: "Something went wrong. Please try again." })
       }
     } finally {
       setIsLoading(false)
@@ -126,6 +121,18 @@ export function PasswordResetRequestForm() {
               "Send reset link"
             )}
           </Button>
+          {result?.success && (
+            <Alert className="bg-green-50 border-green-200 mt-2 block">
+              <CheckCircle2 className="h-4 w-4 text-green-600" />
+              <AlertDescription className="text-green-700">{result.success}</AlertDescription>
+            </Alert>
+          )}
+          {result?.error && (
+            <Alert variant="destructive" className="mt-2 block">
+              <AlertCircle className="h-4 w-4" />
+              <AlertDescription>{result.error}</AlertDescription>
+            </Alert>
+          )}
         </form>
       </CardContent>
       <CardFooter>
