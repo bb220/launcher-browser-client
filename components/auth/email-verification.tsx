@@ -84,7 +84,7 @@ export function EmailVerification() {
               The verification link may have expired or is invalid.
             </p>
             <Button variant="outline" className="w-full" asChild>
-              <Link href="/auth">Return to login</Link>
+              <Link href="/send-verify">Send a new verification link</Link>
             </Button>
           </>
         )}

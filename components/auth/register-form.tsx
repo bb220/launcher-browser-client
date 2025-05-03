@@ -51,6 +51,8 @@ export function RegisterForm({ inTabView = false }: RegisterFormProps) {
         description: "Please check your email to verify your account",
       })
 
+      router.push(`/send-verify?email=${encodeURIComponent(data.email)}`)
+
     } catch (error) {
       if (error instanceof z.ZodError) {
         const fieldErrors: Record<string, string> = {}
