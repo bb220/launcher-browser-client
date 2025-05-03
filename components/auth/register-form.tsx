@@ -46,9 +46,6 @@ export function RegisterForm({ inTabView = false }: RegisterFormProps) {
       registerSchema.parse(data);
 
       await registerUser(data.email, data.password)
-
-      setResult({ success: "Registration successful" })
-
       router.push(`/send-verify?email=${encodeURIComponent(data.email)}`)
 
     } catch (error) {
@@ -132,12 +129,6 @@ export function RegisterForm({ inTabView = false }: RegisterFormProps) {
                 "Create account"
               )}
             </Button>
-            {result?.success && (
-              <Alert className="bg-green-50 border-green-200 mt-2 block">
-                <CheckCircle2 className="h-4 w-4 text-green-600" />
-                <AlertDescription className="text-green-700">{result.success}</AlertDescription>
-              </Alert>
-            )}
             {result?.error && (
               <Alert variant="destructive" className="mt-2 block">
                 <AlertCircle className="h-4 w-4" />
@@ -211,12 +202,6 @@ export function RegisterForm({ inTabView = false }: RegisterFormProps) {
               "Create account"
             )}
           </Button>
-          {result?.success && (
-            <Alert className="bg-green-50 border-green-200 mt-2 block">
-              <CheckCircle2 className="h-4 w-4 text-green-600" />
-              <AlertDescription className="text-green-700">{result.success}</AlertDescription>
-            </Alert>
-          )}
           {result?.error && (
             <Alert variant="destructive" className="mt-2 block">
               <AlertCircle className="h-4 w-4" />

@@ -49,7 +49,7 @@ export function LoginForm({ inTabView = false }: LoginFormProps) {
       const { access_token } = await loginUser(data.email, data.password)
 
       localStorage.setItem("token", access_token)
-      
+
       // Redirect to dashboard or home page
       router.push("/dashboard")
     } catch (error) {
@@ -138,12 +138,6 @@ export function LoginForm({ inTabView = false }: LoginFormProps) {
                 "Sign in"
               )}
             </Button>
-            {result?.success && (
-              <Alert className="bg-green-50 border-green-200 mt-2 block">
-                <CheckCircle2 className="h-4 w-4 text-green-600" />
-                <AlertDescription className="text-green-700">{result.success}</AlertDescription>
-              </Alert>
-            )}
             {result?.error && (
               <Alert variant="destructive" className="mt-2 block">
                 <AlertCircle className="h-4 w-4" />
@@ -222,12 +216,6 @@ export function LoginForm({ inTabView = false }: LoginFormProps) {
               "Sign in"
             )}
           </Button>
-          {result?.success && (
-            <Alert className="bg-green-50 border-green-200 mt-2 block">
-              <CheckCircle2 className="h-4 w-4 text-green-600" />
-              <AlertDescription className="text-green-700">{result.success}</AlertDescription>
-            </Alert>
-          )}
           {result?.error && (
             <Alert variant="destructive" className="mt-2 block">
               <AlertCircle className="h-4 w-4" />
