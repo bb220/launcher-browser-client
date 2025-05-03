@@ -1,54 +1,46 @@
 # Launcher WebApp
 
-Frontend web application for the Launcher platform.  
-This project provides the user-facing experience and connects to backend services such as the Launcher UserService.
+![Next.js](https://img.shields.io/badge/Next.js-000000?style=for-the-badge&logo=next.js)
+![Vercel](https://img.shields.io/badge/Vercel-000000?style=for-the-badge&logo=vercel)
+![License: MIT](https://img.shields.io/badge/License-MIT-green?style=for-the-badge)
+
+A sleek and modern frontend application for the Launcher platform, designed to provide an engaging user experience while seamlessly integrating with backend services like the Launcher UserService.
+
+Built with Next.js and styled with Tailwind CSS, this web application is optimized for performance and scalability, making it ideal for rapid development and deployment.
 
 ---
 
-## Features
-
-- Landing page with placeholder content
-- User Registration and Login
-- Dashboard for logged in users with placeholder content
----
-
-## Tech Stack
-
-- [Next.js](https://nextjs.org/) (React Framework)
-- [Vercel](https://vercel.com/) (Hosting & Deployment)
-- [Tailwind CSS](https://tailwindcss.com/) (Optional — if used)
-- API integration with Launcher UserService (Coming soon)
+## Key Features
+- 🌟 Intuitive user interface with responsive design
+- 🔒 Secure user registration and login
+- 📊 Dashboard with dynamic content
+- 🌐 API integration with Launcher UserService
 
 ---
 
-## Getting Started
+## Technologies Used
+- **Next.js** — React framework for production
+- **Tailwind CSS** — Utility-first CSS framework
+- **Vercel** — Hosting and deployment platform
 
-### Prerequisites
+---
 
-- [Node.js](https://nodejs.org/) (v18 or higher recommended)
-- [NPM](https://www.npmjs.com/) or [Yarn](https://yarnpkg.com/)
+## Local Setup and Installation
 
-### Installation
-
-Clone the repository:
-
+### 1. Clone the repository
 ```bash
 git clone https://github.com/bb220/launcher-webapp.git
 cd launcher-webapp
 ```
 
-Install dependencies:
-
+### 2. Install dependencies
 ```bash
 npm install
 # or
 yarn install
 ```
 
-### Running Locally
-
-Start the development server:
-
+### 3. Run the app locally
 ```bash
 npm run dev
 # or
@@ -59,15 +51,13 @@ The app will be available at [http://localhost:3000](http://localhost:3000).
 
 ---
 
-## Deployment
+## 🚀 Deployment
 
-This project is continuously deployed via [Vercel](https://vercel.com/).
-
-On each push to the `main` branch, Vercel automatically builds and deploys the latest version.
+This project is continuously deployed via [Vercel](https://vercel.com/). On each push to the `main` branch, Vercel automatically builds and deploys the latest version.
 
 ---
 
-## Environment Variables
+## 📦 Environment Variables
 
 The following environment variables may be required:
 
@@ -83,22 +73,18 @@ NEXT_PUBLIC_API_URL=https://your-api-url.com
 
 ---
 
-## Roadmap
-
-- [x] Initial Frontend Setup
-- [ ] Connect frontend to Launcher UserService
-- [ ] Add user session management
-- [ ] Add UI/UX enhancements
-- [ ] Integrate additional Launcher platform services
+## ✨ Future Improvements
+- Integration with additional Launcher platform services
+- Enhanced UI/UX features
 
 ---
 
 ## License
 
-[MIT](LICENSE)
+This project is licensed under the [MIT License](LICENSE).
 
 ---
 
-## Related Projects
-
-- [Launcher UserService](https://github.com/bb220/launcher-userservice)
+## Author
+Built by [bb220](https://github.com/bb220)
+Open to feedback and collaboration!
