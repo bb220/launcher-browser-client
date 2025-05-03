@@ -75,7 +75,7 @@ export function EmailVerification() {
       <CardFooter className="flex flex-col gap-2">
         {status === "success" && (
           <Button className="w-full" asChild>
-            <Link href="/">Sign in to your account</Link>
+            <Link href="/auth">Sign in to your account</Link>
           </Button>
         )}
         {status === "error" && (
