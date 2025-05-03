@@ -43,7 +43,7 @@ export function PasswordResetRequestForm() {
 
       await requestPasswordReset(data.email)
 
-      setResult({ success: "We've sent you a link to reset your password. Please check your inbox." })
+
       setSubmitted(true)
     } catch (error) {
       if (error instanceof z.ZodError) {
@@ -121,12 +121,6 @@ export function PasswordResetRequestForm() {
               "Send reset link"
             )}
           </Button>
-          {result?.success && (
-            <Alert className="bg-green-50 border-green-200 mt-2 block">
-              <CheckCircle2 className="h-4 w-4 text-green-600" />
-              <AlertDescription className="text-green-700">{result.success}</AlertDescription>
-            </Alert>
-          )}
           {result?.error && (
             <Alert variant="destructive" className="mt-2 block">
               <AlertCircle className="h-4 w-4" />
