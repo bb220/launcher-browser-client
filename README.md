@@ -74,6 +74,7 @@ NEXT_PUBLIC_API_URL=https://your-api-url.com
 ---
 
 ## ✨ Future Improvements
+- HttpOnly cookies for refresh token
 - Integration with additional Launcher platform services
 - Enhanced UI/UX features
 
