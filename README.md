@@ -28,24 +28,24 @@ Built with Next.js and styled with Tailwind CSS, this web application is optimiz
 ## Local Setup and Installation
 
 ### 1. Clone the repository
-```bash
+\`\`\`bash
 git clone https://github.com/bb220/launcher-webapp.git
 cd launcher-webapp
-```
+\`\`\`
 
 ### 2. Install dependencies
-```bash
+\`\`\`bash
 npm install
 # or
 yarn install
-```
+\`\`\`
 
 ### 3. Run the app locally
-```bash
+\`\`\`bash
 npm run dev
 # or
 yarn dev
-```
+\`\`\`
 
 The app will be available at [http://localhost:3000](http://localhost:3000).
 
@@ -67,9 +67,9 @@ The following environment variables may be required:
 
 Create a `.env.local` file in the project root and add the necessary variables:
 
-```bash
+\`\`\`bash
 NEXT_PUBLIC_API_URL=https://your-api-url.com
-```
+\`\`\`
 
 ---
 
